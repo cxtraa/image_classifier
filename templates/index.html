@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <title>Image Classifier</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+            * {
+                font-family: "Roboto", "sans-serif";
+            }
+        </style>
+        <script>
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
+    </head>
+    <body>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="form-container text-center w-50">
+                <h1 class="display-4 mb-3">Image Classifier</h1>
+                <p>An image classifier model trained using transfer learning on ResNet-50. Classify your images into the 100 labels from the <a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-100 dataset.</a></p>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="image" class="form-label mb-3 fs-5">Upload your image: </label>
+                        <input class="form-control mb-4" type="file" id="image" name="image">
+                    </div>
+                    <button type="submit" class="w-100 btn btn-light mb-4">Upload</button>
+                </form>
+                
+                {% if image %}
+                    <p class="fs-5">Uploaded Image<p>
+                    <img src="{{ url_for('static', filename='uploads/' + image) }}" class="img_fluid mb-4" style="max-width : 100%; max-height : 40vh">
+                    {% if label is not none %}
+                        <div class="container alert alert-success">
+                            Our model thinks this is a {{ label }}.
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
